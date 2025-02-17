@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/DIA.png";
 import "./Users.css";
+const apiUrl = import.meta.env.VITE_API_URL;
 const UsersPage = () => {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
@@ -34,8 +35,8 @@ const UsersPage = () => {
 
     try {
       const endpoint = isLogin
-        ? "http://localhost:5000/api/users/login"
-        : "http://localhost:5000/api/users/register";
+        ? `${apiUrl}/login`
+        : `${apiUrl}/register`;
       const response = await axios.post(endpoint, formData);
 
       if (response.data.token) {
