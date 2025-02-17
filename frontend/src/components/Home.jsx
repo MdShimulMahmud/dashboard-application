@@ -35,6 +35,14 @@ const HomePage = () => {
     window.location.href = "/";
   };
 
+  const handleUserDelete = async (userId) => {
+    await axios.delete(`http://localhost:5000/api/users/${userId}`);
+  };
+
+  const handleUserEdit = async (userId) => {
+    await axios.put(`http://localhost:5000/api/users/${userId}`);
+  };
+
   // Pagination logic
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
@@ -78,7 +86,7 @@ const HomePage = () => {
               }`}
               onClick={() => setActiveTab("profile")}
             >
-              👤 Profile
+              👤 Users
             </button>
             <button
               onClick={() => {
@@ -227,8 +235,8 @@ const HomePage = () => {
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {currentUsers.map((user, index) => (
-                        <tr key={index} className="hover:bg-gray-50">
+                      {currentUsers.map((user) => (
+                        <tr key={user._id} className="hover:bg-gray-50">
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                             {user.name || "N/A"}
                           </td>
@@ -245,10 +253,16 @@ const HomePage = () => {
                             {user.university || "N/A"}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            <button className="border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold py-1 px-3 rounded-lg text-xs">
+                            <button
+                              className="border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold py-1 px-3 rounded-lg text-xs"
+                              onClick={handleUserEdit(user._id)}
+                            >
                               Edit
                             </button>
-                            <button className="ml-2 border border-red-600 text-red-600 hover:bg-red-600 hover:text-white font-semibold py-1 px-3 rounded-lg text-xs">
+                            <button
+                              className="ml-2 border border-red-600 text-red-600 hover:bg-red-600 hover:text-white font-semibold py-1 px-3 rounded-lg text-xs"
+                              onClick={handleUserDelete(user._id)}
+                            >
                               Delete
                             </button>
                           </td>

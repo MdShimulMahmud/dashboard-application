@@ -11,6 +11,16 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await User.deleteOne({ _id: id });
+    res.status(200).json({ message: "User deleted successfully!" });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 const register = async (req, res) => {
   try {
     // Check if user already exists
@@ -85,7 +95,7 @@ const login = async (req, res) => {
       })
       .json({
         message: "Login successful",
-        user: userObject,
+        token,
       });
   } catch (error) {
     res.status(400).json({
@@ -95,4 +105,4 @@ const login = async (req, res) => {
   }
 };
 
-export { getAllUsers, login, register };
+export { deleteUser, getAllUsers, login, register };
