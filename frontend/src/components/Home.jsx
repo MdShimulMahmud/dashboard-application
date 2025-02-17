@@ -9,12 +9,14 @@ const HomePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(5);
   const [settingsMenuOpen, setSettingsMenuOpen] = useState(false); // Track if the settings menu is open
-  const apiUrl = import.meta.env.VITE_API_URL;
+
+  // const apiUrl = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`${apiUrl}`, {
+        const response = await axios.get(`/users`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUsers(response.data);

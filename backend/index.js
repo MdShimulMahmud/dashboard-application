@@ -17,11 +17,11 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // Register User
-app.use("/api/users", router);
+app.use("/users", router);
 
 const PORT = process.env.PORT || 5000;
 // MongoDB Connection
-connect(process.env.MONGODB_URI || "mongodb://localhost:27017/auth")
+connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("✅ Connected to MongoDB");
     app.listen(PORT, (err) => {

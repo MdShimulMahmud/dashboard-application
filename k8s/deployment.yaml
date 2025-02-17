@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+  labels:
+    app: client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+      - name: client-pod
+        image: shimulmahmud/dashboard-client
+        ports:
+        - containerPort: 80
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-deployment
+  labels:
+    app: server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+    spec:
+      containers:
+      - name: server-pod
+        image: shimulmahmud/dashboard-server
+        ports:
+        - containerPort: 5000
+        env:
+        - name: MONGODB_URI
+          valueFrom:
+            configMapKeyRef:
+              name: configmap
+              key: MONGODB_URI
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: secret
+              key: JWT_SECRET
