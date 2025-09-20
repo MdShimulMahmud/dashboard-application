@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: configmap
 data:
-  MONGODB_URI: "mongodb+srv://shimulmahmud:1804021@cluster0.aiwa1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  MONGODB_URI: "your_mongodb_url"
